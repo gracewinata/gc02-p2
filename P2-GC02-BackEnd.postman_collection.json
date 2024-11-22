@@ -1,0 +1,4094 @@
+{
+	"info": {
+		"_postman_id": "2710dbe6-0729-487e-802e-4116a46cacf5",
+		"name": "P2-GC02-BackEnd",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33858811"
+	},
+	"item": [
+		{
+			"name": "Credentials",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Login success should return correct response\", () => {",
+									"    const jsonData = pm.response.json();",
+									"    pm.response.to.have.statusCode(200);",
+									"    pm.expect(jsonData).to.be.an('object');",
+									"    pm.expect(jsonData.data.access_token).to.be.a('string');",
+									"    pm.collectionVariables.set(\"TOKEN\", jsonData.data.access_token);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "{{EMAIL_ADMIN}}",
+									"description": "Admin",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "{{EMAIL_STAFF}}",
+									"description": "Staff",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/login",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create New User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "halo-dunia11",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "this.is.email11@mail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text"
+								},
+								{
+									"key": "phoneNumber",
+									"value": "One Two Three",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "Earth in Peace",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/add-user",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"add-user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Blog",
+			"item": [
+				{
+					"name": "Blog - Post - Fetch All",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/blog/posts",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"blog",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Blog - Post - Fetch Detailed",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/blog/posts/10",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"blog",
+								"posts",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Blog - Post - Create New",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"\",\n    \"content\": \"dolor sit amet\",\n    \"imgUrl\": \"https://placekitten.com/100\",\n    \"categoryId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/blog/posts",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"blog",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Blog - Post - Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Maknyu Ipsum dositmet\",\n    \"content\": \"dolor sit amet\",\n    \"imgUrl\": \"https://placekitten.com/100\",\n    \"categoryId\": 7\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/blog/posts/2",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"blog",
+								"posts",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Blog - Post - Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/blog/posts/9",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"blog",
+								"posts",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Blog - Post - Patch Image",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/standard/Downloads/Hacktiv8 Meeting Background.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/blog/posts/2",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"blog",
+								"posts",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Blog - Categories - Fetch All",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/blog/categories",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"blog",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Blog - Categories - Fetch Detailed",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/blog/categories/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"blog",
+								"categories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Blog - Categories - Create New",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Halo",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/blog/categories",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"blog",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Blog - Categories - Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "New Name",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/blog/categories/9",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"blog",
+								"categories",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Blog - Categories - Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/blog/categories/10",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"blog",
+								"categories",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Blog - Post - Public - Fetch All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/pub/blog/posts?q=&i=&limit=10&page=1&sort=ASC",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"pub",
+								"blog",
+								"posts"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "",
+									"description": "First Entity (title)"
+								},
+								{
+									"key": "i",
+									"value": "",
+									"description": "Second Entity (name)"
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "Min 4, Max 12, Default 10"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "sort",
+									"value": "ASC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Blog - Post - Public - Fetch Detailed",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/pub/blog/posts/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"pub",
+								"blog",
+								"posts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Blog - Categories - Public - Fetch All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/pub/blog/categories",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"pub",
+								"blog",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Branded Things",
+			"item": [
+				{
+					"name": "Branded Things - Products - Fetch All",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/branded-things/products",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"branded-things",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Branded Things - Products - Fetch Detailed",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/branded-things/products/10",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"branded-things",
+								"products",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Branded Things - Products - Create New",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Halo Dunia\",\n    \"description\": \"dolor sit amet\",\n    \"price\": 50000,\n    \"imgUrl\": \"https://placekitten.com/100\",\n    \"stock\": 120,\n    \"categoryId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/branded-things/products",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"branded-things",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Branded Things - Products - Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Yuqi\",\n    \"description\": \"waifu idaman\",\n    \"price\": 50000,\n    \"stock\": 120,\n    \"categoryId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/branded-things/products/12",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"branded-things",
+								"products",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Branded Things - Products - Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/branded-things/products/10",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"branded-things",
+								"products",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Branded Things - Products - Patch Image",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/alphanos/Downloads/artworks-lXmqOBOWjjwtf0bo-XmObnA-t500x500.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/branded-things/products/12",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"branded-things",
+								"products",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Branded Things - Categories - Fetch All",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/branded-things/categories",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"branded-things",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Branded Things - Categories - Fetch Detailed",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/branded-things/categories/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"branded-things",
+								"categories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Branded Things - Categories - Create New",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Halo",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/branded-things/categories",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"branded-things",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Branded Things - Categories - Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "New Name",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/branded-things/categories/9",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"branded-things",
+								"categories",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Branded Things - Categories - Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/branded-things/categories/9",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"branded-things",
+								"categories",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Branded Things - Products - Public - Fetch All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/pub/branded-things/products?q=&i=&limit=10&page=1&sort=ASC",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"pub",
+								"branded-things",
+								"products"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "",
+									"description": "First Entity (description) - Search"
+								},
+								{
+									"key": "i",
+									"value": "",
+									"description": "Second Entity (name) - Filter"
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "Min 4, Max 12, Default 10"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "sort",
+									"value": "ASC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Branded Things - Products - Public - Fetch Detailed",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/pub/branded-things/products/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"pub",
+								"branded-things",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Branded Things - Categories - Public - Fetch All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/pub/branded-things/categories",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"pub",
+								"branded-things",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Career Portal",
+			"item": [
+				{
+					"name": "Career Portal - Jobs - Fetch All",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/career-portal/jobs",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"career-portal",
+								"jobs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Career Portal - Jobs - Fetch Detailed",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/career-portal/jobs/10",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"career-portal",
+								"jobs",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Career Portal - Jobs - Create New",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Halo Hai\",\n    \"description\": \"dolor sit amet\",\n    \"jobType\": \"iseng\",\n    \"imgUrl\": \"https://placekitten.com/100\",\n    \"companyId\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/career-portal/jobs",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"career-portal",
+								"jobs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Career Portal - Jobs - Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Halo Hai\",\n    \"description\": \"Palugada Developer\",\n    \"jobType\": \"Developer\",\n    \"imgUrl\": \"https://placekitten.com/100\",\n    \"companyId\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/career-portal/jobs/2",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"career-portal",
+								"jobs",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Career Portal - Jobs - Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/career-portal/jobs/10",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"career-portal",
+								"jobs",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Career Portal - Jobs - Patch Image",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/standard/Downloads/Hacktiv8 Meeting Background.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/career-portal/jobs/11",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"career-portal",
+								"jobs",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Career Portal - Companies - Fetch All",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/career-portal/companies",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"career-portal",
+								"companies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Career Portal - Companies - Fetch Detailed",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/career-portal/companies/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"career-portal",
+								"companies",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Career Portal - Companies - Create New",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Halo",
+									"type": "text"
+								},
+								{
+									"key": "companyLogo",
+									"value": "https://placekitten.com/100",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "Indonesia",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "mail@jagojago.com",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "hai,gabolehkosong",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/career-portal/companies",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"career-portal",
+								"companies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Career Portal - Companies - Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "New Name",
+									"type": "text"
+								},
+								{
+									"key": "companyLogo",
+									"value": "https://placekitten.com/100",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "Dimanapun",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "everything@mail.com",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "halodunia",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/career-portal/companies/9",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"career-portal",
+								"companies",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Career Portal - Companies - Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/career-portal/companies/9",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"career-portal",
+								"companies",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Career Portal - Jobs - Public - Fetch All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/pub/career-portal/jobs?q=Va&i=vero&limit=8&page=1&sort=ASC",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"pub",
+								"career-portal",
+								"jobs"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "Va",
+									"description": "First Entity (title)"
+								},
+								{
+									"key": "i",
+									"value": "vero",
+									"description": "Second Entity (name)"
+								},
+								{
+									"key": "limit",
+									"value": "8",
+									"description": "Min 4, Max 12, Default 10"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "sort",
+									"value": "ASC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Career Portal - Jobs - Public - Fetch Detailed",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/pub/career-portal/jobs/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"pub",
+								"career-portal",
+								"jobs",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Career Portal - Companies - Public - Fetch All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/pub/career-portal/companies",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"pub",
+								"career-portal",
+								"companies"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Movie",
+			"item": [
+				{
+					"name": "Movie - Movies - Fetch All",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/movie/movies",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"movie",
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Movie - Movies - Fetch Detailed",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/movie/movies/10",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"movie",
+								"movies",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Movie - Movies - Create New",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Halo Dunia\",\n    \"title\": \"Halo Hai\",\n    \"trailerUrl\": \"https://placekitten.com/80\",\n    \"imgUrl\": \"https://placekitten.com/100\",\n    \"synopsis\": \"Kumpulan cerita cerita\",\n    \"rating\": 1,\n    \"genreId\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/movie/movies",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"movie",
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Movie - Movies - Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Halo Dunia\",\n    \"title\": \"Halo Hai\",\n    \"trailerUrl\": \"https://placekitten.com/80\",\n    \"imgUrl\": \"https://placekitten.com/100\",\n    \"synopsis\": \"Kumpulan cerita cerita\",\n    \"rating\": 1,\n    \"genreId\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/movie/movies/2",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"movie",
+								"movies",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Movie - Movies -  Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/movie/movies/10",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"movie",
+								"movies",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Movie - Movies - Patch Image",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/standard/Downloads/Hacktiv8 Meeting Background.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/movie/movies/11",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"movie",
+								"movies",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Movie - Genres - Fetch All",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/career-portal/companies",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"career-portal",
+								"companies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Movie - Genres - Fetch Detailed",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/career-portal/companies/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"career-portal",
+								"companies",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Movie - Genres - Create New",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Halo",
+									"type": "text"
+								},
+								{
+									"key": "companyLogo",
+									"value": "https://placekitten.com/100",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "Indonesia",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "mail@jagojago.com",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "hai,gabolehkosong",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/career-portal/companies",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"career-portal",
+								"companies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Movie - Genres - Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "New Name",
+									"type": "text"
+								},
+								{
+									"key": "companyLogo",
+									"value": "https://placekitten.com/100",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "Dimanapun",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "everything@mail.com",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "halodunia",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/career-portal/companies/9",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"career-portal",
+								"companies",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Movie - Genres - Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/career-portal/companies/9",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"career-portal",
+								"companies",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Movie - Movies - Public - Fetch All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/pub/movie/movies?q=tio&i=virtus&limit=8&page=1&sort=ASC",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"pub",
+								"movie",
+								"movies"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "tio",
+									"description": "First Entity (title)"
+								},
+								{
+									"key": "i",
+									"value": "virtus",
+									"description": "Second Entity (name)"
+								},
+								{
+									"key": "limit",
+									"value": "8",
+									"description": "Min 4, Max 12, Default 10"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "sort",
+									"value": "ASC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Movie - Movies - Public - Fetch Detailed",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/pub/movie/movies/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"pub",
+								"movie",
+								"movies",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Movie - Genres - Public - Fetch All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/pub/movie/genres",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"pub",
+								"movie",
+								"genres"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "News Portal",
+			"item": [
+				{
+					"name": "News Portal - Articles - Fetch All",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/news-portal/articles",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"news-portal",
+								"articles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "News Portal - Articles - Fetch Detailed",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/news-portal/articles/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"news-portal",
+								"articles",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "News Portal - Articles - Create New",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Halo Dunia\",\n    \"title\": \"Halo Hai\",\n    \"content\": \"Lorem Ipsum\",\n    \"imgUrl\": \"https://placekitten.com/100\",\n    \"rating\": 1,\n    \"categoryId\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/news-portal/articles",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"news-portal",
+								"articles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "News Portal - Articles - Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Halo Dunia\",\n    \"title\": \"Halo Hai\",\n    \"content\": \"Lorem Ipsum Dolor sit amet\",\n    \"imgUrl\": \"https://placekitten.com/100\",\n    \"rating\": 1,\n    \"categoryId\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/news-portal/articles/2",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"news-portal",
+								"articles",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "News Portal - Articles - Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/news-portal/articles/10",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"news-portal",
+								"articles",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "News Portal - Articles - Patch Image",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/standard/Downloads/1587199.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/news-portal/articles/11",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"news-portal",
+								"articles",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "News Portal - Categories - Fetch All",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/news-portal/categories",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"news-portal",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "News Portal - Categories - Fetch Detailed",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/news-portal/categories/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"news-portal",
+								"categories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "News Portal - Categories - Create New",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Halo",
+									"type": "text"
+								},
+								{
+									"key": "companyLogo",
+									"value": "https://placekitten.com/100",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "Indonesia",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "mail@jagojago.com",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "hai,gabolehkosong",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/news-portal/categories",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"news-portal",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "News Portal - Categories - Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "New Name",
+									"type": "text"
+								},
+								{
+									"key": "companyLogo",
+									"value": "https://placekitten.com/100",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "Dimanapun",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "everything@mail.com",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "halodunia",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/news-portal/categories/9",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"news-portal",
+								"categories",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "News Portal - Categories - Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/news-portal/categories/9",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"news-portal",
+								"categories",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "News Portal - Articles - Public - Fetch All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/pub/news-portal/articles?q=Va&i=tripudio&limit=8&page=1&sort=ASC",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"pub",
+								"news-portal",
+								"articles"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "Va",
+									"description": "First Entity (title)"
+								},
+								{
+									"key": "i",
+									"value": "tripudio",
+									"description": "Second Entity (name)"
+								},
+								{
+									"key": "limit",
+									"value": "8",
+									"description": "Min 4, Max 12, Default 10"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "sort",
+									"value": "ASC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "News Portal - Articles - Public - Fetch Detailed",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/pub/news-portal/articles/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"pub",
+								"news-portal",
+								"articles",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "News Portal - Categories - Public - Fetch All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/pub/news-portal/categories",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"pub",
+								"news-portal",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rent Rooms",
+			"item": [
+				{
+					"name": "Rent Rooms - Lodgings - Fetch All",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/rent-room/lodgings",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"rent-room",
+								"lodgings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rent Rooms - Lodgings - Fetch Detailed",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/rent-room/lodgings/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"rent-room",
+								"lodgings",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rent Rooms - Lodgings - Create New",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Halo Dunia\",\n    \"imgUrl\": \"https://placekitten.com/100\",\n    \"facility\": \"Manapun Saja\",\n    \"roomCapacity\": 100,\n    \"location\": \"Everywhere\",\n    \"typeId\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/rent-room/lodgings",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"rent-room",
+								"lodgings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rent Rooms - Lodgings - Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Halo Dunia 2\",\n    \"imgUrl\": \"https://placekitten.com/100\",\n    \"facility\": \"Manapun Saja\",\n    \"roomCapacity\": 100,\n    \"location\": \"Everywhere\",\n    \"typeId\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/rent-room/lodgings/2",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"rent-room",
+								"lodgings",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rent Rooms - Lodgings - Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/rent-room/lodgings/10",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"rent-room",
+								"lodgings",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rent Rooms - Lodgings - Patch Image",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/standard/Downloads/1587199.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/rent-room/lodgings/11",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"rent-room",
+								"lodgings",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rent Rooms - Types - Fetch All",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/rent-room/types",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"rent-room",
+								"types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rent Rooms - Types - Fetch Detailed",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/rent-room/types/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"rent-room",
+								"types",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rent Rooms - Types - Create New",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Halo",
+									"type": "text"
+								},
+								{
+									"key": "companyLogo",
+									"value": "https://placekitten.com/100",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "Indonesia",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "mail@jagojago.com",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "hai,gabolehkosong",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/rent-room/types",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"rent-room",
+								"types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rent Rooms - Types - Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "New Name",
+									"type": "text"
+								},
+								{
+									"key": "companyLogo",
+									"value": "https://placekitten.com/100",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "Dimanapun",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "everything@mail.com",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "halodunia",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/rent-room/types/4",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"rent-room",
+								"types",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rent Rooms - Types - Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/rent-room/types/9",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"rent-room",
+								"types",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rent Rooms - Lodgings - Public - Fetch All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/pub/rent-room/lodgings?q=Va&i=voro&limit=8&page=1&sort=ASC",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"pub",
+								"rent-room",
+								"lodgings"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "Va",
+									"description": "First Entity (name)"
+								},
+								{
+									"key": "i",
+									"value": "voro",
+									"description": "Second Entity (name)"
+								},
+								{
+									"key": "limit",
+									"value": "8",
+									"description": "Min 4, Max 12, Default 10"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "sort",
+									"value": "ASC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rent Rooms - Lodgings - Public - Fetch Detailed",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/pub/rent-room/lodgings/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"pub",
+								"rent-room",
+								"lodgings",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rent Rooms - Types - Public - Fetch All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/pub/rent-room/types",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"pub",
+								"rent-room",
+								"types"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rental Transportation",
+			"item": [
+				{
+					"name": "Rental Transportation - Transportations - Fetch All",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/rental-transportation/transportations",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"rental-transportation",
+								"transportations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rental Transportation - Transportations - Fetch Detailed",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/rental-transportation/transportations/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"rental-transportation",
+								"transportations",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rental Transportation - Transportations - Create New",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Halo Dunia\",\n    \"description\": \"Lorem Ipsum\",\n    \"imgUrl\": \"https://placekitten.com/100\",\n    \"price\": 125000,\n    \"location\": \"Everywhere\",\n    \"typeId\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/rental-transportation/transportations",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"rental-transportation",
+								"transportations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rental Transportation - Transportations - Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Halo Dunia\",\n    \"description\": \"Lorem Ipsum\",\n    \"imgUrl\": \"https://placekitten.com/100\",\n    \"price\": 125000,\n    \"location\": \"Everywhere\",\n    \"typeId\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/rental-transportation/transportations/2",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"rental-transportation",
+								"transportations",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rental Transportation - Transportations - Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/rental-transportation/transportations/10",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"rental-transportation",
+								"transportations",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rental Transportation - Transportations - Patch Image",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/standard/Downloads/1587199.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/rental-transportation/transportations/11",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"rental-transportation",
+								"transportations",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rental Transportation - Types - Fetch All",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/rental-transportation/types",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"rental-transportation",
+								"types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rental Transportation - Types - Fetch Detailed",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/rental-transportation/types/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"rental-transportation",
+								"types",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rental Transportation - Types - Create New",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Halo",
+									"type": "text"
+								},
+								{
+									"key": "companyLogo",
+									"value": "https://placekitten.com/100",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "Indonesia",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "mail@jagojago.com",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "hai,gabolehkosong",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/rental-transportation/types",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"rental-transportation",
+								"types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rental Transportation - Types - Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "New Name",
+									"type": "text"
+								},
+								{
+									"key": "companyLogo",
+									"value": "https://placekitten.com/100",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "Dimanapun",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "everything@mail.com",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "halodunia",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/rental-transportation/types/4",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"rental-transportation",
+								"types",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rental Transportation - Types - Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/rental-transportation/types/9",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"rental-transportation",
+								"types",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rental Transportation - Transportations - Public - Fetch All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/pub/rental-transportation/transportations?q=pa&i=adsidue&limit=8&page=1&sort=ASC",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"pub",
+								"rental-transportation",
+								"transportations"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "pa",
+									"description": "First Entity (name)"
+								},
+								{
+									"key": "i",
+									"value": "adsidue",
+									"description": "Second Entity (name)"
+								},
+								{
+									"key": "limit",
+									"value": "8",
+									"description": "Min 4, Max 12, Default 10"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "sort",
+									"value": "ASC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rental Transportation - Transportations - Public - Fetch Detailed",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/pub/rental-transportation/transportations/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"pub",
+								"rental-transportation",
+								"transportations",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rental Transportation - Types - Public - Fetch All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/pub/rental-transportation/types",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"pub",
+								"rental-transportation",
+								"types"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Restaurant App",
+			"item": [
+				{
+					"name": "Restaurant App - Cuisines - Fetch All",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/restaurant-app/cuisines",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"restaurant-app",
+								"cuisines"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Restaurant App - Cuisines - Fetch Detailed",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/restaurant-app/cuisines/10",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"restaurant-app",
+								"cuisines",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Restaurant App - Cuisines - Create New",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Halo Dunia\",\n    \"description\": \"dolor sit amet\",\n    \"price\": 50000,\n    \"imgUrl\": \"https://placekitten.com/100\",\n    \"stock\": 120,\n    \"categoryId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/restaurant-app/cuisines",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"restaurant-app",
+								"cuisines"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Restaurant App - Cuisines - Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Halo Dunia Lagi\",\n    \"description\": \"dolor sit amet aja\",\n    \"price\": 123555,\n    \"imgUrl\": \"https://placekitten.com/100\",\n    \"stock\": 69,\n    \"categoryId\": 7\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/restaurant-app/cuisines/2",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"restaurant-app",
+								"cuisines",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Restaurant App - Cuisines - Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/restaurant-app/cuisines/10",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"restaurant-app",
+								"cuisines",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Restaurant App - Cuisines - Patch Image",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/standard/Downloads/Hacktiv8 Meeting Background.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/restaurant-app/cuisines/11",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"restaurant-app",
+								"cuisines",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Restaurant App - Categories - Fetch All",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/restaurant-app/categories",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"restaurant-app",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Restaurant App - Categories - Fetch Detailed",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/restaurant-app/categories/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"restaurant-app",
+								"categories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Restaurant App - Categories - Create New",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Halo",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/restaurant-app/categories",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"restaurant-app",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Restaurant App - Categories - Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "New Name",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/apis/restaurant-app/categories/9",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"restaurant-app",
+								"categories",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Restaurant App - Categories - Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/restaurant-app/categories/9",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"restaurant-app",
+								"categories",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Restaurant App - Cuisines - Public - Fetch All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/pub/restaurant-app/cuisines?q=vo&i=denuo&limit=8&page=1&sort=ASC",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"pub",
+								"restaurant-app",
+								"cuisines"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "vo",
+									"description": "First Entity (name)"
+								},
+								{
+									"key": "i",
+									"value": "denuo",
+									"description": "Second Entity (name)"
+								},
+								{
+									"key": "limit",
+									"value": "8",
+									"description": "Min 4, Max 12, Default 10"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "sort",
+									"value": "ASC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Restaurant App - Cuisines - Public - Fetch Detailed",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/pub/restaurant-app/cuisines/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"pub",
+								"restaurant-app",
+								"cuisines",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Restaurant App - Categories - Public - Fetch All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/apis/pub/restaurant-app/categories",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"apis",
+								"pub",
+								"restaurant-app",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "TOKEN",
+			"value": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwicm9sZSI6IkFkbWluIiwiaWF0IjoxNjk5NTAzNDc3LCJleHAiOjE2OTk1MDcwNzd9.g08ik6Za91-wuVO7KT72F_mK9_JHjVJZSJ67giLkqTE",
+			"type": "string"
+		},
+		{
+			"key": "EMAIL_ADMIN",
+			"value": "admin@mail.com",
+			"type": "string"
+		},
+		{
+			"key": "EMAIL_STAFF",
+			"value": "staff@mail.com",
+			"type": "string"
+		},
+		{
+			"key": "BASE_URL",
+			"value": "https://h8-phase2-gc.vercel.app",
+			"type": "string"
+		}
+	]
+}
