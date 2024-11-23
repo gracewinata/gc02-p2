@@ -162,7 +162,8 @@ export default function HomePage(){
             <nav className="flex items-center justify-center gap-x-1">
                             <button
                                 type="button"
-                                className="min-h-[38px] min-w-[38px] flex justify-center items-center rounded-lg border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,1)] hover:bg-purple-400 hover:border-2 hover:border-black hover:shadow-[2px_2px_0px_rgba(0,0,0,1)] py-2 px-3 text-sm disabled:bg-purple-400"
+                                // className="px-4 py-2 bg-amber-600 border-2 border-white hover:scale-105 hover:transform cursor-pointer text-white rounded-lg"
+                                className="min-h-[38px] min-w-[38px] flex justify-center items-center rounded-lg border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,1)] hover:bg-amber-600 hover:border-2 hover:border-black hover:shadow-[2px_2px_0px_rgba(0,0,0,1)] py-2 px-3 text-sm font-bold disabled:bg-amber-600"
                                 onClick={handlePrev}
                                 disabled={currentPage == 1}
                             >
@@ -188,7 +189,7 @@ export default function HomePage(){
                                         <>
                                             <button
                                                 type="button"
-                                                className={el == currentPage ? "min-h-[38px] min-w-[38px] flex justify-center items-center bg-purple-400 py-2 px-3 text-sm rounded-lg border-2 border-black rounded-lg shadow-[2px_2px_0px_rgba(0,0,0,1)]" : "min-h-[38px] min-w-[38px] flex justify-center items-center rounded-lg border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,1)] hover:bg-purple-400 hover:border-2 hover:border-black hover:shadow-[2px_2px_0px_rgba(0,0,0,1)] py-2 px-3 text-sm"}
+                                                className={el == currentPage ? "min-h-[38px] min-w-[38px] flex justify-center items-center bg-amber-600 py-2 px-3 text-sm font-bold rounded-lg border-2 border-black rounded-lg shadow-[2px_2px_0px_rgba(0,0,0,1)]" : "min-h-[38px] min-w-[38px] flex justify-center items-center rounded-lg border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,1)] hover:bg-amber-600 hover:border-2 hover:border-black hover:shadow-[2px_2px_0px_rgba(0,0,0,1)] py-2 px-3 text-sm"}
                                                 onClick={() => setCurrentPage(el)}
                                             >
                                                 {el}
@@ -199,7 +200,7 @@ export default function HomePage(){
                             </div>
                             <button
                                 type="button"
-                                className="min-h-[38px] min-w-[38px] flex justify-center items-center rounded-lg border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,1)] hover:bg-purple-400 hover:border-2 hover:border-black hover:shadow-[2px_2px_0px_rgba(0,0,0,1)] py-2 px-3 text-sm disabled:bg-purple-400"
+                                className="min-h-[38px] min-w-[38px] flex justify-center items-center rounded-lg border-2 border-black shadow-[2px_2px_0px_rgba(0,0,0,1)] hover:bg-amber-600 hover:border-2 hover:border-black hover:shadow-[2px_2px_0px_rgba(0,0,0,1)] py-2 px-3 text-sm font-bold disabled:bg-amber-600"
                                 onClick={handleNext}
                                 disabled={currentPage == totalPage}
                             >
