@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import Toastify from 'toastify-js'
 // import ProductForm from "../components/productForm"
-import ProductForm from "../components/productForm"
+import ProductForm from "../components/ProductForm"
 import axios from 'axios'
 
 export default function EditForm(){
